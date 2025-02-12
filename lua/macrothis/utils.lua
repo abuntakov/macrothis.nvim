@@ -64,10 +64,15 @@ utils.remove_entry = function(opts, description)
     utils.save_data(opts, data)
 end
 
-utils.run_macro = function(opts, register, description)
+utils.run_macro = function(opts, register, description, count)
     utils.load_register(opts, register, description)
     vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes("@" .. register, true, false, true),
+        vim.api.nvim_replace_termcodes(
+            count .. "@" .. register,
+            true,
+            false,
+            true
+        ),
         "n",
         false
     )

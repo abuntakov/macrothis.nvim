@@ -68,7 +68,7 @@ require("telescope").extensions = {
 | &lt;C-h&gt; | Show key bindings |
 | &lt;C-n&gt; | Rename selected entry |
 | &lt;C-q&gt; | Run macro on files in quickfix list |
-| &lt;C-r&gt; | Run macro |
+| &lt;C-r&gt; | Run macro (supports v:count) |
 | &lt;C-s&gt; | Save a macro/register |
 | &lt;C-x&gt; | Edit register (&lt;C-c&gt; can be used to copy the register as printable) |
 

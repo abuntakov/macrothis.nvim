@@ -207,10 +207,11 @@ end
 ---
 ---@usage `require('macrothis').run()`
 macrothis.run = function()
+    local count = vim.v.count1
     local menuelem = macrothis.generate_menu_items()
 
     vim.ui.select(menuelem, {
-        prompt = "Run on quickfix list",
+        prompt = "Run macro",
         format_item = function(item)
             return ("%s: %s"):format(item.label, item.value)
         end,
@@ -219,7 +220,8 @@ macrothis.run = function()
             utils.run_macro(
                 macrothis.opts,
                 macrothis.opts.run_register,
-                description.label
+                description.label,
+                count
             )
             macrothis.opts.last_used = description.label
         end
