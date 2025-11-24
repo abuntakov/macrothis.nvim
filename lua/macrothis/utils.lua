@@ -65,6 +65,7 @@ utils.remove_entry = function(opts, description)
 end
 
 utils.run_macro = function(opts, register, description, count)
+    count = tonumber(count) or 1   -- fallback на 1
     utils.load_register(opts, register, description)
     vim.api.nvim_feedkeys(
         vim.api.nvim_replace_termcodes(
