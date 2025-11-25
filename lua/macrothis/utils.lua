@@ -90,6 +90,39 @@ utils.run_macro_on_quickfixlist = function(opts, register, description)
     )
 end
 
+utils.run_macro_on_lines = function(opts, register, description, start_line, end_line)
+    utils.load_register(opts, register, description)
+    
+    -- If no range specified, use visual selection or current line
+    if not start_line or not end_line then
+        start_line = vim.fn.line("'<")
+        end_line = vim.fn.line("'>")
+        
+        -- If no visual selection, use current line
+        if start_line == 0 or end_line == 0 then
+            start_line = vim.fn.line(".")
+            end_line = start_line
+        end
+    end
+    
+    -- Apply macro to each line in range
+    for line = start_line, end_line do
+        vim.cmd(string.format(":%d", line))
+        vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("@" .. register, true, false, true),
+            "n",
+            false
+        )
+    end
+    
+    -- Return to normal mode
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes("<ESC>", true, false, true),
+        "n",
+        false
+    )
+end
+
 utils.get_winopts = function(opts)
     local width = opts.editor.width
     local height = opts.editor.height

@@ -251,6 +251,29 @@ macrothis.quickfix = function()
     end)
 end
 
+--- Run macro on each line in range
+---
+---@usage `require('macrothis').run_on_lines()`
+macrothis.run_on_lines = function()
+    local menuelem = macrothis.generate_menu_items()
+
+    vim.ui.select(menuelem, {
+        prompt = "Run macro on lines",
+        format_item = function(item)
+            return ("%s: %s"):format(item.label, item.value)
+        end,
+    }, function(description, _)
+        if description then
+            utils.run_macro_on_lines(
+                macrothis.opts,
+                macrothis.opts.run_register,
+                description.label
+            )
+            macrothis.opts.last_used = description.label
+        end
+    end)
+end
+
 --- Edit macro
 ---
 ---@usage `require('macrothis').edit()`

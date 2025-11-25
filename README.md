@@ -29,6 +29,7 @@ Works with or without telescope.
         { "<Leader>kkx", function() require('macrothis').register() end, desc = "edit register" },
         { "<Leader>kkp", function() require('macrothis').copy_register_printable() end, desc = "Copy register as printable" },
         { "<Leader>kkm", function() require('macrothis').copy_macro_printable() end, desc = "Copy macro as printable" },
+        { "<Leader>kkL", function() require('macrothis').run_on_lines() end, desc = "run macro on each line", mode = "v" },
     }
 },
 ```
@@ -66,6 +67,7 @@ require("telescope").extensions = {
 | &lt;C-d&gt; | Delete selected entry or delete all marked entries |
 | &lt;C-e&gt; | Edit content of macro |
 | &lt;C-h&gt; | Show key bindings |
+| &lt;C-l&gt; | Run macro on each line in range/selection |
 | &lt;C-n&gt; | Rename selected entry |
 | &lt;C-q&gt; | Run macro on files in quickfix list |
 | &lt;C-r&gt; | Run macro (supports v:count) |

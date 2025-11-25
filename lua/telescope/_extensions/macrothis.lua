@@ -29,6 +29,7 @@ local default_telescope = {
         register = "<C-x>",
         copy_macro = "<C-c>",
         help = "<C-h>",
+        run_on_lines = "<C-l>",
     },
     sorter = sorters.get_generic_fuzzy_sorter,
     items_display = {
@@ -244,6 +245,18 @@ local run_macro_on_quickfixlist = function(prompt_bufnr)
     )
 end
 
+local run_macro_on_lines = function(prompt_bufnr)
+    local selected_macro = action_state.get_selected_entry()
+
+    actions.close(prompt_bufnr)
+
+    utils.run_macro_on_lines(
+        macrothis.opts,
+        macrothis.opts.run_register,
+        selected_macro.value.label
+    )
+end
+
 local rename_macro = function(prompt_bufnr)
     local selected_register = action_state.get_selected_entry()
 
@@ -350,6 +363,7 @@ local help = function(prompt_bufnr)
         run = "Run macro",
         rename = "Rename macro",
         quickfix = "Run macro on quickfix list",
+        run_on_lines = "Run macro on each line",
         copy_macro = "Copy a macro to a new name",
         register = "Edit a register",
     }
@@ -414,6 +428,11 @@ local runpicker = function(opts)
                 "i",
                 macrothis.telescope_config.mappings.quickfix,
                 run_macro_on_quickfixlist
+            )
+            map(
+                "i",
+                macrothis.telescope_config.mappings.run_on_lines,
+                run_macro_on_lines
             )
             map("i", macrothis.telescope_config.mappings.rename, rename_macro)
             map("i", macrothis.telescope_config.mappings.edit, edit_macro)
